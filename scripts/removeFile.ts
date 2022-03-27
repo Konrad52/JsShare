@@ -18,7 +18,7 @@ var filelistJSON = JSON.parse(filelist.toString());
 var hash = JSS_HASHER.hash(args[0], 24);
 delete filelistJSON[hash];
 
-fs.writeFileSync(path.join(__dirname, "./filelist.json"), JSON.stringify(filelistJSON));
+fs.writeFileSync(path.join(__dirname, "./../filelist.json"), JSON.stringify(filelistJSON));
 
 JSS_LOGGER.log(`File \"${hash}\" has been removed successfully.`);
 

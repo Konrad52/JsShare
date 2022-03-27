@@ -35,7 +35,7 @@ filelistJSON[hash] = {
             date.getSeconds().toString().padStart(2, '0')}`
 };
 
-fs.writeFileSync(path.join(__dirname, "./filelist.json"), JSON.stringify(filelistJSON));
+fs.writeFileSync(path.join(__dirname, "./../filelist.json"), JSON.stringify(filelistJSON));
 
 JSS_LOGGER.log(`File added successfully as \"${hash}\" with the password \"${pass}\".`);
 
