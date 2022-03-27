@@ -1,8 +1,8 @@
 {
   "name": "js-share",
-  "version": "1.0.0",
+  "version": "0.1.0 beta",
   "description": "",
-  "main": "index.ts",
+  "main": "scripts/index.ts",
   "scripts": {
     "start": "node --require @nextools/suppress-experimental-warnings --loader ts-node/esm scripts/index.ts",
     "addFile": "node --require @nextools/suppress-experimental-warnings --loader ts-node/esm scripts/addFile.ts",
