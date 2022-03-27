@@ -17,7 +17,7 @@ if (!fs.existsSync(args[0])) {
     process.exit();
 }
 
-var filelist = fs.readFileSync(path.join(__dirname, "./filelist.json"));
+var filelist = fs.readFileSync(path.join(__dirname, "./../filelist.json"));
 var filelistJSON = JSON.parse(filelist.toString());
 
 var hash = JSS_HASHER.hash(args[0], 24);

@@ -12,7 +12,7 @@ if (args.length != 2)
     process.exit();
 }
 
-var users = fs.readFileSync(path.join(__dirname, "./users.json"));
+var users = fs.readFileSync(path.join(__dirname, "./../users.json"));
 var usersJSON = JSON.parse(users.toString());
 
 var pass = JSS_HASHER.hashWithSalt(args[1], args[0], 32);
@@ -20,7 +20,7 @@ usersJSON[args[0]] = {
     pass: pass,
 };
 
-fs.writeFileSync(path.join(__dirname, "./users.json"), JSON.stringify(usersJSON));
+fs.writeFileSync(path.join(__dirname, "./../users.json"), JSON.stringify(usersJSON));
 
 JSS_LOGGER.log(`Users added successfully as \"${args[0]}\" with the password \"${pass}\".`);
 
