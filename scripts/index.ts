@@ -29,9 +29,15 @@ var httpServer: any = null;
 var httpsServer: any = null;
 httpServer = http.createServer(app);
 if (JSS_CONFIG.https) {
+    try {
     key = fs.readFileSync(path.join(__dirname, './../certs/privkey.pem'));
     cert = fs.readFileSync(path.join(__dirname, './../certs/fullchain.pem'));
-    httpsServer = https.createServer(options, app);
+    } catch(err) {
+        JSS_CONFIG.https = false;
+        JSS_LOGGER.warn("No SSL keys found. Falling back to http only.");
+    } finally {
+        httpsServer = https.createServer(options, app);
+    }
 }
 
 try {
