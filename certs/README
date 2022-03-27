@@ -1,0 +1,4 @@
+This is the location for the https certeficates.
+The necessary files are:
+    - privkey.pem   - Private key for SSL
+    - fullchain.pem - Full public chain for SSL

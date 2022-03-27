@@ -1,0 +1,29 @@
+x-tooltip {
+    width: fit-content;
+    height: 2em;
+    white-space: nowrap;
+    position: absolute;
+    display: block;
+    background-color: #000000aa;
+    box-shadow: inset 0 0 0.5em 0.25em #000000aa;
+    border: 1px solid white;
+    line-height: 1em;
+    text-shadow: 0.1em 0.1em 0.1em #000;
+    color: white;
+    top: 50%;
+    left: 0;
+    transform: translate(calc(-100% - 0.5em), -50%);
+    padding: 0.5em;
+    border-radius: 0.5em;
+    pointer-events: none;
+    user-select: none;
+    transition: 0.33s all ease-in-out;
+}
+
+x-tooltip[x-visible="false"] {
+    opacity: 0;
+}
+
+x-tooltip[x-visible="true"] {
+    opacity: 1;
+}

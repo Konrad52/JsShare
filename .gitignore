@@ -1,0 +1,7 @@
+certs/*.pem
+node_modules/
+
+contextMenu.reg
+
+filelist.json
+users.json

@@ -1,0 +1,105 @@
+x-navbar-sticky-wrapper {
+    display: block;
+    position: sticky;
+    width: 100%;
+    top: 0;
+}
+
+x-navbar {
+    width: 100%;
+
+    display: flex;
+    align-self: flex-start;
+    top: 0;
+
+    flex-flow: row nowrap;
+    justify-content: normal;
+}
+
+x-navbar-collapse {
+    transition: 0.1s transform ease-in-out;
+
+    height: 100%;
+}
+
+x-navbar-collapse[x-collapse="false"] {
+    display: block;
+    width: fit-content;
+
+    overflow: auto;
+}
+
+x-navbar-collapse[x-collapse="true"] {
+    display: block;
+
+    position: absolute;
+    width: 100%;
+    left: 0;
+    top: 0;
+    transform: translate(0%, 100%);
+}
+
+x-navbar-collapse[x-collapse="true"][x-toggle="false"] {
+    pointer-events: none;
+    opacity: 0;
+    transform: translate(0%, 50%) scale(100%, 0%);
+}
+
+x-navbar-collapse[x-collapse="true"][x-toggle="true"] {
+    opacity: 1;
+    transform: translate(0%, 100%) scale(100%, 100%);
+}
+
+x-navbar-item {
+    position: relative;
+    display: flex;
+
+    justify-content: center;
+
+    background-color: white;
+
+    padding: 1em;
+
+    z-index: 10;
+
+    user-select: none;
+}
+
+x-navbar-item:hover {
+    box-shadow: inset 0px 0px 2px 2px #00000044;
+}
+
+x-navbar-item:active {
+    filter: brightness(0.8);
+}
+
+x-navbar-item[x-collapse="false"] {   
+    height: 100%;
+    width: fit-content;
+
+    align-items: center;
+
+    float: left;
+}
+
+x-navbar-item[x-collapse="true"] {
+    height: fit-content;
+    width: 100%;
+}
+
+x-toggle-button::after {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    font-size: 2em;
+    align-items: center;
+    justify-content: center;
+}
+
+x-toggle-button:hover {
+    box-shadow: inset 0px 0px 2px 2px #00000044;
+}
+
+x-toggle-button:active {
+    filter: brightness(0.8);
+}

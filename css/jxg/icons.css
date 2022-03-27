@@ -1,0 +1,9 @@
+.navbar-icon::after {
+    content: "☰";
+}
+
+.sidebar-icon::after {
+    content: "⋮⋮⋮";
+    letter-spacing: -0.5em;
+    margin-left: -0.25em;
+}

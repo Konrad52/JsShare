@@ -1,0 +1,50 @@
+x-sidebar[x-collapse="false"] {
+    display: block;
+    position: fixed;
+
+    top: var(--sidebar-top-offset);
+    width: 19em;
+    height: calc(100% - var(--sidebar-top-offset));
+
+    background-color: white;
+
+    transition: 0.1s ease-in-out left;
+
+    overflow: auto;
+}
+
+x-sidebar[x-toggle="false"] {
+    left: -100%;
+}
+
+x-sidebar[x-toggle="true"] {
+    left: 0;
+}
+
+x-sidebar-item {
+    position: relative;
+    display: flex;
+
+    justify-content: center;
+
+    background-color: white;
+
+    padding: 1em;
+
+    z-index: 10;
+
+    user-select: none;
+}
+
+x-sidebar-item:hover {
+    box-shadow: inset 0px 0px 2px 2px #00000044;
+}
+
+x-sidebar-item:active {
+    filter: brightness(0.8);
+}
+
+x-sidebar-item {
+    height: fit-content;
+    width: 100%;
+}

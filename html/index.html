@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS-Share</title>
+    <link rel="stylesheet" href="jxg.css">
+    <style>
+        .download-item {
+            flex-flow: nowrap row;
+            justify-content: left;
+        }
+
+        .download-item-block {
+            height: 3em;
+        }
+
+        .download-button {
+            width: 50%;
+        }
+
+        @media only screen and (max-width: 600px) {
+            .download-item {
+                flex-flow: wrap column;
+                justify-content: flex-start;
+            }
+
+            .download-item-block {
+                height: 9em;
+            }
+
+            .download-button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body x-bg-c="#111">
+    <x-navbar-sticky-wrapper>
+        <x-navbar x-h="4em" x-bg-c="#444">
+            <x-block x-h="4em" x-w-min="8em" x-w-max="8em" x-bg-c="#333" x-p-right="0.5em" style="border-radius: 0 2em 2em 0; user-select: none; box-shadow: 0.5em 0em 0.25em -0.25em #00000088;">
+                <x-bcenter x-t-c="white" x-t-size="1.5em">
+                    JS-Share
+                </x-bcenter>
+            </x-block>
+            <!-- <x-block x-h="4em" x-w="0.5em"></x-block>
+            <x-block x-w="100%">
+                <x-navbar-collapse x-name="navbar" x-bg-c="#505050">
+                    <x-navbar-item x-bg-c="#505050">
+                        Main
+                    </x-navbar-item>
+                    <x-navbar-item x-bg-c="#505050">
+                        Author
+                    </x-navbar-item>
+                </x-navbar-collapse>
+            </x-block>
+            <x-toggle-button x-h="4em" x-w-min="4em" x-w-max="4em" x-bg-c="#333" x-t-c="white" x-name="navbar" class="navbar-icon" tabindex="0"></x-toggle-button> -->
+            <x-block x-w="100%"></x-block>
+            <x-block x-w="fit-content" x-p="1em" x-bg-c="#333" x-t-c="white">
+                <x-bcenter style="white-space: nowrap;">
+                    Logged in as @{LOGIN}
+                </x-bcenter>
+            </x-block>
+            <x-button x-p="0.5em" x-m="0.5em" style="font-weight: bold; white-space: nowrap;" onclick="logout()">Log out</button>
+        </x-navbar>
+    </x-navbar-sticky-wrapper>
+    <x-container x-h-min="calc(100vh - 5em)" x-h="fit-content" x-w="calc(100vw - 1.1em)" x-m-left="0.5em" x-m-top="0.5em" x-p="0.75em" x-bg-c="#222" x-ai="flex-start" style="align-content: flex-start;">
+
+        <!-- <x-block class="download-item-block" x-w="100%" x-bg-c="#333" style="border-radius: 2em;">
+            <x-container class="download-item">
+                <x-block class="download-button" x-h="3em" x-w-min="12em" x-bg-c="#404040" style="border-radius: 2em;">
+                    <x-bcenter x-t-c="white" style="user-select: none;">
+                        @{DATE}
+                    </x-bcenter>
+                </x-block>
+                <x-block x-t-c="white" x-w="100%" x-h="3em">
+                    <x-vcenter x-w="100%" x-m-left="1em" x-m-right="1em" style="user-select: none;">
+                        @{FILENAME}
+                    </x-vcenter>
+                </x-block>
+                <div style="display: flex;" x-w="100%" x-jc="right">
+                    <x-button class="download-button" x-h="3em" x-w-min="8em" x-bg-c="#404040" style="border-radius: 2em 0em 0em 2em;" onclick="window.location += '@{DOWNLOAD}';">
+                        <x-bcenter x-t-c="white">
+                            Download
+                        </x-bcenter>
+                    </x-button>
+                    <x-button x-h="3em" x-w-min="2em" x-w-max="2em" x-bg-c="#404040" style="border-radius: 0em 2em 2em 0em;" onclick="copy(window.location + '@{DOWNLOAD}'); jxgTooltip('@{DOWNLOAD}');">
+                        <x-bcenter x-t-c="white">
+                            ⎘
+                        </x-bcenter>
+                        <x-tooltip x-name="@{DOWNLOAD}" x-visible="false">
+                            Copied to clipboard
+                        </x-tooltip>
+                    </x-button>
+                </div>
+            </x-container>
+        </x-block>
+        <x-block class="media-font-size" style="height: 0.5em; width: 100%"></x-block> -->
+        
+        @{FILELIST}
+    </x-container>
+    <script src="jxg.js"></script>
+    <script>
+        function copy(string) {
+            navigator.clipboard.writeText(string);
+        }
+
+        function logout() {
+            if (document.cookie === "")
+                alert("Can't log out of localhost.");
+            else {
+                document.cookie = "sessionID=;expires=Thu, 01 Jan 1970 00:00:00 GMT;";
+                window.location.reload();
+            }
+        }
+    </script>
+</body>
+</html>
