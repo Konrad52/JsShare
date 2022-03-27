@@ -21,17 +21,18 @@ app.use(express.urlencoded({ extended: true }));
 
 var key = null;
 var cert = null;
-var options = {
-  key: key,
-  cert: cert
-};
+var options = null;
 var httpServer: any = null;
 var httpsServer: any = null;
 httpServer = http.createServer(app);
 if (JSS_CONFIG.https) {
     try {
-    key = fs.readFileSync(path.join(__dirname, './../certs/privkey.pem'));
-    cert = fs.readFileSync(path.join(__dirname, './../certs/fullchain.pem'));
+        key = fs.readFileSync(path.join(__dirname, './../certs/privkey.pem'));
+        cert = fs.readFileSync(path.join(__dirname, './../certs/fullchain.pem'));
+        options = {
+            key: key,
+            cert: cert
+        };
     } catch(err) {
         JSS_CONFIG.https = false;
         JSS_LOGGER.warn("No SSL keys found. Falling back to http only.");
