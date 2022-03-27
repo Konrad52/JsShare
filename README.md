@@ -1,5 +1,7 @@
 # JsShare
 ### Share files from your local computer with just one open port and a url! 💻
+![Version](https://img.shields.io/static/v1?label=Version&message=0.1.0%20beta&color=success?style=flat-square)
+![Sanity](https://img.shields.io/static/v1?label=Sanity&message=stable&color=success?style=flat-square)
 
 Basically this app allows you to select files on your machine, and assign a url to them.
 Anyone with the url is able to download it if:
