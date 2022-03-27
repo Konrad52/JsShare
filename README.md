@@ -79,5 +79,5 @@ export const JSS_CONFIG = {
 - Removes the desired file from the webpage. If the file isn't shared anyway it won't do anything.
 
 ## Special thanks
-I thank @shagloghai for discussing the idea,
+Thanks to @shagloghai for discussing the idea with me,
 and Rodya#1365 (Discord) for helping with testing.
