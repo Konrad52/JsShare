@@ -3,6 +3,7 @@ import path = require("path");
 
 import { JSS_HASHER } from "../ts/hasher";
 import { JSS_LOGGER } from "../ts/logger";
+import { replaceAll } from "../ts/util";
 
 const args = process.argv.splice(2);
 
@@ -20,7 +21,7 @@ if (!fs.existsSync(args[0])) {
 var filelist = fs.readFileSync(path.join(__dirname, "./../filelist.json"));
 var filelistJSON = JSON.parse(filelist.toString());
 
-var hash = JSS_HASHER.hash(args[0], 24);
+var hash = JSS_HASHER.hash(replaceAll(args[0].split("").reverse().join(""), "\\", ""), 64);
 var pass = JSS_HASHER.hash(args[0], 8);
 var date = new Date();
 filelistJSON[hash] = {

@@ -1,17 +1,10 @@
 import path = require("path");
-import util = require("util");
 import fs = require("fs");
 
 import { fileManagerInstance } from "./files";
 import { JSS_CONFIG } from "../config";
 import { JSS_HASHER } from "./hasher";
-
-function replaceAll(value: string, search: string, replace: string): string {
-    if (replace === undefined) {
-        return value.toString();
-    }
-    return value.split(search).join(replace);
-}
+import { replaceAll } from "./util";
 
 const fileRow = `
 <x-block class="download-item-block" x-w="100%" x-bg-c="#333" style="border-radius: 2em;">
