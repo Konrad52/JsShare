@@ -34,9 +34,39 @@
                 width: 100%;
             }
         }
+
+        #overlay {
+            position: fixed;
+            display: block;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 100%;
+            background-color: #000000cc;
+            
+            z-index: 9999;
+        }
     </style>
 </head>
 <body x-bg-c="#111">
+    <div id="overlay" style="display: none;">
+        <x-vcenter x-w="100%" x-h="100%">
+            <x-hcenter x-h="fit-content" x-w="100%">
+                <x-block x-t-c="white" x-w="fit-content" style="flex: none; border-radius: 2em;" x-bg-c="#444" x-p="1em">
+                    <form action="/addfile" method="post">
+                        <div x-p-bottom="0.5em">Full path to the file:</div>
+                        <x-input type="text" name="file" id="file" x-w="20em"></x-input>
+                        <br>
+                        <x-container>
+                            <x-block x-w-max="100%" x-h="1em"></x-block>
+                            <x-button type="button" x-p="0.5em" x-p-left="1em" x-p-right="1em" onclick="toggleAddFile()">Cancel</x-button>
+                            <x-button x-p="0.5em" x-p-left="1em" x-p-right="1em" style="background-color: #88aaff;">Add</x-button>
+                        </x-container>
+                    </form>
+                </x-block>
+            </x-hcenter>
+        </x-vcenter>
+    </div>
     <x-navbar-sticky-wrapper>
         <x-navbar x-h="4em" x-bg-c="#444">
             <x-block x-h="4em" x-w-min="8em" x-w-max="8em" x-bg-c="#333" x-p-right="0.5em" style="border-radius: 0 2em 2em 0; user-select: none; box-shadow: 0.5em 0em 0.25em -0.25em #00000088;">
@@ -44,6 +74,7 @@
                     JS-Share
                 </x-bcenter>
             </x-block>
+            <x-button onclick="toggleAddFile()" x-p="0.5em" x-p-left="1em" x-p-right="1em" x-m="0.5em" style="font-weight: bold; white-space: nowrap;">Add file</x-button>
             <!-- <x-block x-h="4em" x-w="0.5em"></x-block>
             <x-block x-w="100%">
                 <x-navbar-collapse x-name="navbar" x-bg-c="#505050">
@@ -113,6 +144,11 @@
                 document.cookie = "sessionID=;expires=Thu, 01 Jan 1970 00:00:00 GMT;";
                 window.location.reload();
             }
+        }
+
+        function toggleAddFile(event) {
+            const overlay = document.getElementById("overlay");
+            overlay.style.display = overlay.style.display === "block" ? "none" : "block";
         }
     </script>
 </body>

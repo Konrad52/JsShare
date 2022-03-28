@@ -4,7 +4,8 @@ import fs = require("fs");
 import { fileManagerInstance } from "./files";
 import { JSS_CONFIG } from "../config";
 import { JSS_HASHER } from "./hasher";
-import { replaceAll } from "./util";
+import { addFile, replaceAll } from "./util";
+import { JSS_LOGGER } from "./logger";
 
 const fileRow = `
 <x-block class="download-item-block" x-w="100%" x-bg-c="#333" style="border-radius: 2em;">
@@ -63,6 +64,16 @@ export class JSS_PAGES {
         instance.setup();        
     }
 
+    private checkSession(req: any): boolean {
+        var user = req.cookies["user"];
+        var sessionid = req.cookies["sessionID"];
+        return !(sessionid == undefined || this.sessions[user] == undefined || !(this.sessions[user].id === sessionid));
+    }
+
+    private isLocalhost(req: any): boolean {
+        return req.socket.remoteAddress.includes("127.0.0.1");
+    }
+
     public setup() {   
         var ip = "";
         
@@ -95,29 +106,51 @@ export class JSS_PAGES {
             res.send(loginPage);
             return;
         });
+        this.app.post("/addfile", (req, res) => {
+            if (!this.checkSession(req) && !this.isLocalhost(req)) {
+                res.send("Missing credentials!");
+                return;
+            }
+            if (req.body["file"] == undefined) {
+                res.send("Specify a file first!");
+                return;
+            }
+            const file__ = replaceAll(req.body["file"], "\"", "");
+
+            JSS_LOGGER.log(`Attempted to add file "${file__}".`);
+
+            if (!fs.existsSync(file__)) {
+                JSS_LOGGER.error("The provided file does not exist!");
+            }
+
+            const result = addFile([file__]);
+            fs.writeFileSync(path.join(__dirname, "./../filelist.json"), JSON.stringify(result.filelistJSON));
+
+            JSS_LOGGER.log(`The file was added successfully as "${result.hash}" with the password "${result.pass}".`);
+            
+            setTimeout((() => {
+                res.redirect("/");
+            }), 200);
+        });
         this.app.get("/", (req, res) => {
             var login = {
                 name: "",
-                validity: false,
                 local: false
             };
 
-            if (req.socket.remoteAddress.includes("127.0.0.1")) {
+            if (this.isLocalhost(req)) {
                 login.name = "localhost";
-                login.validity = true;
                 login.local = true;
             }
 
-            if (!login.validity) {
-                var user = req.cookies["user"];
-                var sessionid = req.cookies["sessionID"];
-                if (sessionid == undefined || this.sessions[user] == undefined || !(this.sessions[user].id === sessionid)) {
+            if (!login.local) {
+                if (!this.checkSession(req)) {
                     var loginPage = fs.readFileSync(path.join(__dirname, `./../html/login.html`)).toString()
                         .replace("@{MESSAGE}", (login.local || req.secure) ? "Welcome back!" : "<div style='color:#f66'>We strongly advise against logging in with this insecure connection, because your password can easily be stolen. If possible, please use the HTTPS page instead, or log in using localhost.</div>");
                     res.send(loginPage);
                     return;
                 } else {
-                    login.name = user;
+                    login.name = req.cookies["user"];
                 }
             }
 
