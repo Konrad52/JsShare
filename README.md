@@ -48,6 +48,8 @@ export const JSS_CONFIG = {
 
 ## Installation
 
+(You need to have node.js installed on your computer in order for this to work.)
+
 1. Download the repo as a .zip
 2. Extract to the desired location
 3. Run:
