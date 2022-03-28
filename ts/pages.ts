@@ -121,12 +121,11 @@ export class JSS_PAGES {
 
             if (!fs.existsSync(file__)) {
                 JSS_LOGGER.error("The provided file does not exist!");
+            } else {
+                const result = addFile([file__]);
+                fs.writeFileSync(path.join(__dirname, "./../filelist.json"), JSON.stringify(result.filelistJSON));
+                JSS_LOGGER.log(`The file was added successfully as "${result.hash}" with the password "${result.pass}".`);
             }
-
-            const result = addFile([file__]);
-            fs.writeFileSync(path.join(__dirname, "./../filelist.json"), JSON.stringify(result.filelistJSON));
-
-            JSS_LOGGER.log(`The file was added successfully as "${result.hash}" with the password "${result.pass}".`);
             
             setTimeout((() => {
                 res.redirect("/");
