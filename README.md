@@ -66,17 +66,17 @@ export const JSS_CONFIG = {
 - Starts the main application.
 
 ```
-  npm addUser <name> <password>
+  npm run addUser <name> <password>
 ```
 - Adds an admin user that can access the whole file list.
   
 ```
-  npm addFile <path>
+  npm run addFile <path>
 ```
 - Adds the desired file to the website.
  
 ```
-  npm removeFile <path>
+  npm run removeFile <path>
 ```
 - Removes the desired file from the webpage. If the file isn't shared anyway it won't do anything.
 
