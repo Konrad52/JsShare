@@ -4,7 +4,7 @@ import fs = require("fs");
 import { fileManagerInstance } from "./files";
 import { JSS_CONFIG } from "../config";
 import { JSS_HASHER } from "./hasher";
-import { addFile, replaceAll } from "./util";
+import { addFile, removeFile, replaceAll } from "./util";
 import { JSS_LOGGER } from "./logger";
 
 const fileRow = `
@@ -26,12 +26,17 @@ const fileRow = `
                 Download
             </x-bcenter>
         </x-button>
-        <x-button x-h="3em" x-w-min="2em" x-w-max="2em" x-bg-c="#404040" style="border-radius: 0em 2em 2em 0em;" onclick="copy('http://@{IP}:@{PORT}/@{DOWNLOAD}'); jxgTooltip('@{DOWNLOAD}');">
+        <x-button x-h="3rem", x-w-min="3rem" x-w-max="3rem" x-bg-c="#404040" x-t-c="#f66" x-p="0" onclick="removeFile('@{DOWNLOAD}')" style="border-radius: 0; font-weight: bold; text-shadow: 0 0 0.2em black;">
+            <x-bcenter x-t-size="1.5em">
+                X
+            </x-bcenter>
+        </x-button>
+        <x-button x-h="3em" x-w-min="3em" x-w-max="3em" x-bg-c="#404040" style="border-radius: 0em 2em 2em 0em;" onclick="copy(window.location + '@{DOWNLOAD}'); jxgTooltip('@{DOWNLOAD}');">
             <x-bcenter x-t-c="white">
                 ⎘
             </x-bcenter>
             <x-tooltip x-name="@{DOWNLOAD}" x-visible="false">
-                @{TOOLTIP_MESSAGE}
+                Copied to clipboard
             </x-tooltip>
         </x-button>
     </div>
@@ -117,7 +122,7 @@ export class JSS_PAGES {
             }
             const file__ = replaceAll(req.body["file"], "\"", "");
 
-            JSS_LOGGER.log(`Attempted to add file "${file__}".`);
+            JSS_LOGGER.log(`Attempt to add file "${file__}".`);
 
             if (!fs.existsSync(file__)) {
                 JSS_LOGGER.error("The provided file does not exist!");
@@ -126,6 +131,27 @@ export class JSS_PAGES {
                 fs.writeFileSync(path.join(__dirname, "./../filelist.json"), JSON.stringify(result.filelistJSON));
                 JSS_LOGGER.log(`The file was added successfully as "${result.hash}" with the password "${result.pass}".`);
             }
+            
+            setTimeout((() => {
+                res.redirect("/");
+            }), 200);
+        });
+        this.app.post("/removefile", (req, res) => {
+            if (!this.checkSession(req) && !this.isLocalhost(req)) {
+                res.send("Missing credentials!");
+                return;
+            }
+            if (req.body["file"] == undefined) {
+                res.send("Specify a file first!");
+                return;
+            }
+            const file__ = replaceAll(req.body["file"], "\"", "");
+
+            JSS_LOGGER.log(`Attempt to remove file "${file__}".`);
+
+            const result = removeFile(file__, true);
+            fs.writeFileSync(path.join(__dirname, "./../filelist.json"), JSON.stringify(result.filelistJSON));
+            JSS_LOGGER.log(`The file was removed successfully.`);
             
             setTimeout((() => {
                 res.redirect("/");

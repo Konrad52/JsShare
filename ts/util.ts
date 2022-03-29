@@ -34,3 +34,13 @@ export function addFile(args): any {
         pass
     };
 }
+
+export function removeFile(file, hash__ = false) {
+    var filelist = fs.readFileSync(path.join(__dirname, "./../filelist.json"));
+    var filelistJSON = JSON.parse(filelist.toString());
+    
+    var hash = hash__ ? file : JSS_HASHER.hash(file, 24);
+    delete filelistJSON[hash];
+
+    return { filelistJSON, hash };
+}

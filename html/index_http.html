@@ -70,7 +70,7 @@
         <x-block id="copy-field" x-w="100%" x-h-min="3em" x-h="fit-content" x-m-bottom="0.5em" x-h="3em" x-t-f="Consolas" x-t-c="#fff" x-bg-c="#111" style="display: flex; justify-content: center; align-items: center; border-radius: 0.5em; box-shadow: inset 0 0 1em 0.1em #202020; border: 1px solid white; overflow-wrap: anywhere;">
             -
         </x-block>
-        <!-- <x-block class="download-item-block" x-w="100%" x-bg-c="#333" style="border-radius: 2em;">
+        <!--         <x-block class="download-item-block" x-w="100%" x-bg-c="#333" style="border-radius: 2em;">
             <x-container class="download-item">
                 <x-block class="download-button" x-h="3em" x-w-min="12em" x-bg-c="#404040" style="border-radius: 2em;">
                     <x-bcenter x-t-c="white" style="user-select: none;">
@@ -88,7 +88,12 @@
                             Download
                         </x-bcenter>
                     </x-button>
-                    <x-button x-h="3em" x-w-min="2em" x-w-max="2em" x-bg-c="#404040" style="border-radius: 0em 2em 2em 0em;" onclick="copy(window.location + '@{DOWNLOAD}'); jxgTooltip('@{DOWNLOAD}');">
+                    <x-button x-h="3rem", x-w-min="3rem" x-w-max="3rem" x-bg-c="#404040" x-t-c="#f66" x-p="0" onclick="removeFile('@{DOWNLOAD}')" style="border-radius: 0; font-weight: bold; text-shadow: 0 0 0.2em black;">
+                        <x-bcenter x-t-size="1.5em">
+                            X
+                        </x-bcenter>
+                    </x-button>
+                    <x-button x-h="3em" x-w-min="3em" x-w-max="3em" x-bg-c="#404040" style="border-radius: 0em 2em 2em 0em;" onclick="copy(window.location + '@{DOWNLOAD}'); jxgTooltip('@{DOWNLOAD}');">
                         <x-bcenter x-t-c="white">
                             ⎘
                         </x-bcenter>
@@ -98,7 +103,7 @@
                     </x-button>
                 </div>
             </x-container>
-        </x-block>
+        </x-block> 
         <x-block class="media-font-size" style="height: 0.5em; width: 100%"></x-block> -->
         
         @{FILELIST}

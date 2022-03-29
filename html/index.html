@@ -116,7 +116,12 @@
                             Download
                         </x-bcenter>
                     </x-button>
-                    <x-button x-h="3em" x-w-min="2em" x-w-max="2em" x-bg-c="#404040" style="border-radius: 0em 2em 2em 0em;" onclick="copy(window.location + '@{DOWNLOAD}'); jxgTooltip('@{DOWNLOAD}');">
+                    <x-button x-h="3rem", x-w-min="3rem" x-w-max="3rem" x-bg-c="#404040" x-t-c="#f66" x-p="0" onclick="removeFile('@{DOWNLOAD}')" style="border-radius: 0; font-weight: bold; text-shadow: 0 0 0.2em black;">
+                        <x-bcenter x-t-size="1.5em">
+                            X
+                        </x-bcenter>
+                    </x-button>
+                    <x-button x-h="3em" x-w-min="3em" x-w-max="3em" x-bg-c="#404040" style="border-radius: 0em 2em 2em 0em;" onclick="copy(window.location + '@{DOWNLOAD}'); jxgTooltip('@{DOWNLOAD}');">
                         <x-bcenter x-t-c="white">
                             ⎘
                         </x-bcenter>
@@ -149,6 +154,24 @@
         function toggleAddFile(event) {
             const overlay = document.getElementById("overlay");
             overlay.style.display = overlay.style.display === "block" ? "none" : "block";
+        }
+
+        function removeFile(file) {
+            if (confirm("Are you sure?")) {
+                fetch("/removefile", {
+                    method: 'POST',
+                    mode: "cors",
+                    cache: "no-cache",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({file: file.split("file=")[1].split("&")[0]})
+                }).then(() => {
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 200);
+                });
+            }
         }
     </script>
 </body>
