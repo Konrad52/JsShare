@@ -122,6 +122,24 @@
                 window.location.reload();
             }
         }
+
+        function removeFile(file) {
+            if (confirm("Are you sure?")) {
+                fetch("/removefile", {
+                    method: 'POST',
+                    mode: "cors",
+                    cache: "no-cache",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({file: file.split("file=")[1].split("&")[0]})
+                }).then(() => {
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 200);
+                });
+            }
+        }
     </script>
 </body>
 </html>
